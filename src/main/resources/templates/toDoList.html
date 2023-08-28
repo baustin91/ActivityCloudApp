@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layouts/defaultLayout">
+	<head>
+		<meta charset="UTF-8">
+		<title>Log in</title>
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="width:100%">
+				<div class="card" style="width:75%; margin-top: 5px;">
+					<div class="shadow p-3 bg-light rounded text-dark">
+					<h1>To Do List</h1>
+					<div class="d-flex justify-content-start" style="margin-top: 5px; margin-bottom: 5px">
+					    <a href="/ToDoList/newToDoForm" class="btn btn-primary">Add To Do</a>
+					</div>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Id</th>
+									<th scope="col">Title</th>
+									<th scope="col">Description</th>
+									<th scope="col">Due Date</th>
+									<th scope="col">Edit</th>
+									<th scope="col">Complete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="todo : ${toDoList}">
+									<td th:text="${todo.id}"></td>
+									<td th:text="${todo.title}"></td>
+									<td th:text="${todo.description}"></td>
+									<td th:text="${todo.dueDate}"></td>
+									<td>
+										<form action="#" th:action="@{editToDo}" th:object="${editToDo}" method="post">
+											<input name="id" type="hidden" th:value="${todo.id}">
+											<input name="title" type="hidden" th:value="${todo.title}">
+											<input name="description" type="hidden" th:value="${todo.description}">
+											<input name="dueDate" type="hidden" th:value="${todo.dueDate}">
+											<button class="btn btn-secondary" type="submit" name="editItem">Edit</button>
+										</form>
+									</td>
+									<td>
+										<form action="#" th:action="@{deleteToDo}" th:object="${todo}" method="post">
+											<input name="id" type="hidden" th:value="${todo.id}">
+											<button class="btn btn-success" type="submit" name="deleteItem">Complete</button>
+										</form> 
+									</td>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

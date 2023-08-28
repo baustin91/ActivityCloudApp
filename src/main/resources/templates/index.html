@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layouts/defaultLayout">
+	<head>
+		<meta charset="UTF-8">
+		<title>Index</title>
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="d-flex flex-column justify-content-center align-items-center">
+				<div style="width: 35rem; margin: 20px">
+						<img src="https://www.gcu.edu/themes/custom/gcu/media/images/header/gcu.svg"/>
+				</div>
+				<div class="card" style="width: 35rem;">
+					<div class="shadow p-3 bg-light rounded text-dark">
+							<h1>CST-323 Activity Assignment</h1>
+							<h3>Bradley Austin</h3>
+							<h4>Activity 1</h4>
+							<h4>Professor Jason Jazzar</h4>
+							<h4>Date: 08/27/2023</h4>
+							<button class="btn btn-primary" style="width: 100%" onclick="document.location='/login/'">Enter</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

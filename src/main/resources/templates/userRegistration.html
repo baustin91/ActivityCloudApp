@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layouts/defaultLayout">
+	<head>
+		<meta charset="UTF-8">
+		<title>Registration</title>
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="d-flex flex-column justify-content-center align-items-center">
+				<div class="card" style="width: 35rem; margin-top: 5px;">
+					<div class="shadow p-3 bg-light rounded text-dark">
+					<h1>Register</h1>
+						<form action="#" method="post" th:action="@{processRegistration}" th:object="${newUser}" th:onsubmit="alert('Congratulations you are registered!');">
+	  						<div class="form-group" style="margin-top: 5px">
+			                    <input type="text" th:field="*{username}" placeholder="Create User Name" class="form-control">
+			                </div>
+			                <div class="form-group" style="margin-top: 5px">
+			                    <input type="password" th:field="*{password}" placeholder="Create Password" class="form-control">
+			                </div>
+							<div class="d-flex justify-content-center" style="width: 100%; margin-top: 5px">
+								<button type="submit" class="btn btn-primary ml-auto btn-block" style="width:100%">Complete Registration</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
