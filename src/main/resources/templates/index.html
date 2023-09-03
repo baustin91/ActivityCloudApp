@@ -4,6 +4,11 @@
 		<meta charset="UTF-8">
 		<title>Index</title>
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<script th:inline="javascript">
+		    document.addEventListener('DOMContentLoaded', function() {
+		        document.querySelector('#logout-button button').disabled = true;
+		    });
+		</script>
 	</head>
 	<body>
 		<div layout:fragment="content">

@@ -4,6 +4,11 @@
 		<meta charset="UTF-8">
 		<title>Log in</title>
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<script th:inline="javascript">
+		    document.addEventListener('DOMContentLoaded', function() {
+		        document.querySelector('#logout-button button').disabled = true;
+		    });
+		</script>
 	</head>
 	<body>
 		<div layout:fragment="content">
@@ -13,10 +18,10 @@
 					<h1>Log in</h1>
 						<form action="/processLogin" method="post" th:action="@{processLogin}" th:object="${userModel}">
 	  						<div class="form-group" style="margin-top: 5px">
-			                    <input type="text" th:field="*{username}" placeholder="User Name" class="form-control">
+			                    <input type="text" th:field="*{username}" placeholder="User Name" class="form-control" required>
 			                </div>
 			                <div class="form-group" style="margin-top: 5px">
-			                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control">
+			                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control" required>
 			                </div>
 							<div class="d-flex justify-content-center" style="width: 100%; margin-top: 5px">
 								<button type="submit" class="btn btn-primary ml-auto btn-block" style="width:100%">Login</button>
@@ -25,7 +30,7 @@
 							<div th:each="err : ${#fields.errors('*')}">
 								<span style="color:red" th:text="${err}" class="fieldError"></span>
 							</div>
-							<div><h5 th:if="${errorMessage}" class="alert alert-danger" role="alert"><span th:text="${errorMessage}"></span></h5></div>
+							<div style="margin-top: 5px;"><h5 th:if="${errorMessage}" class="alert alert-danger" role="alert"><span th:text="${errorMessage}"></span></h5></div>
 						</form>
 						<div class="d-flex justify-content-center" style="width: 100%; margin-top: 5px">
 							<form action="/processReg" method="post" th:action="@{processRegistration}" th:object="${userModel}" style="width: 100%">

@@ -32,8 +32,8 @@ public class LoginController {
 		if (userFromDb != null && user.getPassword().equals(userFromDb.getPassword()))
 			return "redirect:/ToDoList/";
 		else 
-			return "login.html";
-			
+			model.addAttribute("errorMessage", "Invalid username or password.");
+			return "login.html";	
 	}
 	
 	@PostMapping("/processRegistration")//mapping for registration

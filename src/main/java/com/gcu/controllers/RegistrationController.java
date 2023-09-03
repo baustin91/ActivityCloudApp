@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gcu.models.UserModel;
 import com.gcu.services.UserBusinessService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
@@ -26,11 +28,19 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/processRegistration")
-	public String processRegistration(UserModel newUser, BindingResult br, Model model) 
+	public String processRegistration(@Valid UserModel newUser, BindingResult br, Model model) 
 	{
+	    if (br.hasErrors()) 
+	    {
+	    	model.addAttribute("errorMessage", "Invalid username or password.");
+	        return "userRegistration.html";
+	    }
+	    else
+	    {
 		service.addUser(newUser);
 		
 		model.addAttribute("newUser", new UserModel());
 		return "redirect:/login/";
+	    }
 	}
 }

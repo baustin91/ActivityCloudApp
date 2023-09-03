@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.gcu.models.UserMapper;
 import com.gcu.models.UserModel;
 
@@ -22,12 +21,13 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	public UserModel getByUsername (String username) {
+			    
+	    List<UserModel> results = jdbcTemplate.query("SELECT * FROM USERS WHERE USERNAME = ?", new UserMapper(), username);
 		
-		String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
-		
-	    List<UserModel> users = jdbcTemplate.query(sql, new Object[]{username}, new UserMapper());
-	    
-	    return users.isEmpty() ? null : users.get(0);
+		if (results.size() > 0)
+			return results.get(0);
+		else
+			return null;
 	}
 
 	@Override
