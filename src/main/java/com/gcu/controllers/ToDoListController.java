@@ -46,7 +46,7 @@ public class ToDoListController {
 		
 		model.addAttribute("toDoList", toDoList);
 		
-		return "ToDoList";
+		return "toDoList.html";
 	}
 	
 	@PostMapping("/editToDo")
@@ -64,7 +64,7 @@ public class ToDoListController {
 		
 		model.addAttribute("toDoList", toDoList);
 		
-		return"ToDoList";
+		return"toDoList.html";
 	}
 	
 	@PostMapping("/deleteToDo")
@@ -75,7 +75,7 @@ public class ToDoListController {
 		
 		model.addAttribute("toDoList", toDoList);
 		
-		return "ToDoList";
+		return "toDoList.html";
 	}
 	
 }
