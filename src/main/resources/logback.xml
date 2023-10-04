@@ -1,9 +1,13 @@
-<configuration debug="true">
-  <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyBatchAppender">
-    <endpointUrl>https://logs-01.loggly.com/bulk/103a5918-4968-486c-a90a-57d66120074e/tag/logback</endpointUrl>
-    <pattern>%d{"ISO8601", UTC} %p %t %c %M - %m%n</pattern>
-  </appender>
-  <root level="info">
-    <appender-ref ref="loggly" />
-  </root>
-</configuration> 
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>D:\\home\\LogFiles\\application\\app.log</file>
+        <encoder>
+            <pattern>%d{"yyyy-MM-dd HH:mm:ss.SSS", UTC} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <root level="info">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
