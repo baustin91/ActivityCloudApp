@@ -12,10 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gcu.models.ToDoModel;
 import com.gcu.services.ToDoBusinessService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Controller
 @RequestMapping("/ToDoList")
 public class ToDoListController {
+	
+    private static final Logger logger = LoggerFactory.getLogger(ToDoListController.class);
 	
 	@Autowired
 	ToDoBusinessService service;
@@ -23,6 +28,7 @@ public class ToDoListController {
 	@GetMapping("/")
 	public String showAllToDoItems(Model model)
 	{
+        logger.info("Getting all To-Do items.");
 		List<ToDoModel> toDoList = service.getToDos();
 		
 		model.addAttribute("toDoList", toDoList);
@@ -33,6 +39,7 @@ public class ToDoListController {
 	@GetMapping("/newToDoForm")
 	public String newToDoForm(Model model)
 	{
+        logger.info("Displaying new To-Do form.");
 		model.addAttribute("todo", new ToDoModel());
 		return "addToDoForm.html";
 	}
@@ -40,7 +47,8 @@ public class ToDoListController {
 	@PostMapping("/addNew")
 	public String addNew(ToDoModel newToDo, BindingResult br, Model model)
 	{
-		
+        logger.info("Adding new To-Do item: {}", newToDo.getTitle());
+
 		service.addToDo(newToDo);
 		List<ToDoModel> toDoList =service.getToDos();
 		
@@ -52,6 +60,8 @@ public class ToDoListController {
 	@PostMapping("/editToDo")
 	public String editToDo(ToDoModel editToDo, Model model)
 	{
+        logger.info("Editing To-Do item: {}", editToDo.getTitle());
+
 		model.addAttribute("editToDo", editToDo);
 		return "editToDoForm";
 	}
@@ -70,6 +80,8 @@ public class ToDoListController {
 	@PostMapping("/deleteToDo")
 	public String deleteToDo(ToDoModel todo, BindingResult br, Model model)
 	{
+        logger.info("Deleting To-Do item: {}", todo.getTitle());
+
 		service.delete(todo);
 		List<ToDoModel> toDoList =service.getToDos();
 		

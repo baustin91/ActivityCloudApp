@@ -9,9 +9,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.gcu.models.UserMapper;
 import com.gcu.models.UserModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Repository
 public class UserDAO implements IUserDAO{
+	
+    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
+
 	
 	@Autowired
 	DataSource dataSource;
@@ -21,6 +27,8 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	public UserModel getByUsername (String username) {
+        logger.info("Getting user by username: {}", username);
+
 			    
 	    List<UserModel> results = jdbcTemplate.query("SELECT * FROM USERS WHERE USERNAME = ?", new UserMapper(), username);
 		
@@ -32,6 +40,7 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	public boolean addUser(UserModel newUser) {
+        logger.info("Adding new user: {}", newUser.getUsername());
 		String sql = "INSERT INTO USERS(ID, USERNAME, PASSWORD) VALUES(?,?,?)";
 		try
 		{

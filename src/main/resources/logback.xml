@@ -1,0 +1,9 @@
+<configuration debug="true">
+  <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyBatchAppender">
+    <endpointUrl>https://logs-01.loggly.com/bulk/103a5918-4968-486c-a90a-57d66120074e/tag/logback</endpointUrl>
+    <pattern>%d{"ISO8601", UTC} %p %t %c %M - %m%n</pattern>
+  </appender>
+  <root level="info">
+    <appender-ref ref="loggly" />
+  </root>
+</configuration> 

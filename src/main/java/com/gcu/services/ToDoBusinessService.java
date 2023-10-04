@@ -8,15 +8,23 @@ import org.springframework.stereotype.Service;
 
 import com.gcu.data.ToDoDAO;
 import com.gcu.models.ToDoModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 public class ToDoBusinessService implements IToDoBusinessService{
+	
+    private static final Logger logger = LoggerFactory.getLogger(ToDoBusinessService.class);
+
 	
 	@Autowired
 	ToDoDAO toDoDAO;
 
 	@Override
 	public List<ToDoModel> getToDos() {
+        logger.info("Getting all To-Do items.");
+
 		
 		List<ToDoModel> toDoList = toDoDAO.getToDos();
 		
@@ -26,6 +34,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 	@Override
 	public boolean addToDo(ToDoModel todo)
 	{
+        logger.info("Adding a new To-Do item: {}", todo.getTitle());
 		try
 		{
 			toDoDAO.addOne(todo);
@@ -33,6 +42,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 		}
 		catch (Exception e)
 		{
+            logger.error("Failed to add To-Do item: {}", e.getMessage());
 			return false;
 		}
 	}
@@ -40,6 +50,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 	@Override
 	public boolean updateToDo(ToDoModel todo)
 	{
+        logger.info("Updating To-Do item with ID: {}", todo.getId());
 		try
 		{
 			toDoDAO.updateOne(todo.getId(), todo);
@@ -48,6 +59,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 		
 		catch(Exception e)
 		{
+            logger.error("Failed to update To-Do item: {}", e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -56,6 +68,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 	@Override
 	public boolean delete(ToDoModel todo) 
 	{
+        logger.info("Deleting To-Do item with ID: {}", todo.getId());
 		try
 		{
 			toDoDAO.deleteOne(todo.getId());
@@ -63,6 +76,7 @@ public class ToDoBusinessService implements IToDoBusinessService{
 		
 		catch (Exception e)
 		{
+            logger.error("Failed to delete To-Do item: {}", e.getMessage());
 			return false;
 		}
 		

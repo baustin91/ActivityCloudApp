@@ -13,9 +13,15 @@ import org.springframework.stereotype.Repository;
 
 import com.gcu.models.ToDoMapper;
 import com.gcu.models.ToDoModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Repository
 public class ToDoDAO implements IToDoDAO{
+	
+    private static final Logger logger = LoggerFactory.getLogger(ToDoDAO.class);
+
 
 	@Autowired
 	DataSource dataSource;
@@ -25,6 +31,8 @@ public class ToDoDAO implements IToDoDAO{
 	
 	@Override
 	public ToDoModel getById(int id) {
+        logger.info("Getting To-Do by ID: {}", id);
+
 		List<ToDoModel> results = jdbcTemplate.query("SELECT * FROM TODO WHERE ID = ?", new ToDoMapper(), id);
 		
 		if (results.size() > 0)
@@ -35,12 +43,16 @@ public class ToDoDAO implements IToDoDAO{
 
 	@Override
 	public List<ToDoModel> getToDos() {
+        logger.info("Getting all To-Dos.");
+
 		List<ToDoModel> results = jdbcTemplate.query("SELECT * FROM TODO", new ToDoMapper());
 		return results;
 	}
 
 	@Override
 	public int addOne(ToDoModel newToDo) {
+        logger.info("Adding new To-Do: {}", newToDo.getTitle());
+
 		SimpleJdbcInsert simpleInsert = new SimpleJdbcInsert(jdbcTemplate);
 		
 		simpleInsert.withTableName("TODO").usingGeneratedKeyColumns("ID");
@@ -57,6 +69,8 @@ public class ToDoDAO implements IToDoDAO{
 
 	@Override
 	public boolean deleteOne(int id) {
+        logger.info("Deleting To-Do with ID: {}", id);
+
 		int results = jdbcTemplate.update("DELETE FROM TODO WHERE ID = ?", id);
 		
 		if (results > 0)
@@ -67,6 +81,8 @@ public class ToDoDAO implements IToDoDAO{
 
 	@Override
 	public ToDoModel updateOne(int id, ToDoModel updateToDo) {
+        logger.info("Updating To-Do with ID: {}", id);
+
 		int results = jdbcTemplate.update("UPDATE TODO SET TITLE = ?, DESCRIPTION = ?, DUE_DATE = ?  WHERE ID = ?", 
 				updateToDo.getTitle(),
 				updateToDo.getDescription(),
